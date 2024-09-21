@@ -17,6 +17,7 @@ const VerificationCode: React.FC = () => {
       const data = await OTPUploader(values.otp_password);
       if (data?.success) {
         form.resetFields();
+        localStorage.setItem("successToken", data.success);
         navigate("/success");
       } else {
         console.error("Verification failed:", data.message);

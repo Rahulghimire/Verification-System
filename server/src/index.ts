@@ -1,27 +1,14 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import express, { Express } from "express";
 import cors from "cors";
-
-dotenv.config();
+import { PORT } from "../config";
+import verifyRoutes from "../routes/verify";
+import { errorHandler } from "../middlewares/errorHandler";
 
 const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/verify", verifyRoutes);
+app.use(errorHandler);
 
-const port = process.env.PORT || 3333;
-
-app.post("/verify", (req: Request, res: Response) => {
-  const { code }: { code: string } = req.body;
-
-  if (!/^\d{6}$/.test(code) || code.endsWith("7")) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Verification Error" });
-  }
-  return res.json({ success: true });
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(PORT);

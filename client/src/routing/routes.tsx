@@ -2,22 +2,21 @@ import { createBrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
 import { LandingPage, VerificationCode } from "../lazyImport";
 import { errorElement, LoadingFallback } from "../common";
-
-// Common error element
+import LoginLayout from "../layouts";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    errorElement,
     element: (
       <Suspense fallback={<LoadingFallback />}>
-        <VerificationCode />
+        <LoginLayout />
       </Suspense>
     ),
-    errorElement,
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: <VerificationCode />,
         errorElement,
       },
     ],
@@ -25,9 +24,11 @@ export const router = createBrowserRouter([
   {
     path: "/success",
     element: (
-      <Suspense fallback={<LoadingFallback />}>
-        <LandingPage />
-      </Suspense>
+      <>
+        <Suspense fallback={<LoadingFallback />}>
+          <LandingPage />
+        </Suspense>
+      </>
     ),
     errorElement,
   },

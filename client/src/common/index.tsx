@@ -3,7 +3,7 @@ import {
   CloseCircleOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, ConfigProvider, notification, Spin } from "antd";
+import { Button, ConfigProvider, Flex, notification, Spin } from "antd";
 
 export const AntButton: React.FC = () => {
   const colorPrimary = "#100249";
@@ -24,9 +24,15 @@ export const AntButton: React.FC = () => {
 };
 
 export const LoadingFallback = () => (
-  <div className="flex justify-center items-center h-[100vh] bg-[#FF3147]">
+  <Flex
+    align="center"
+    justify="center"
+    style={{
+      height: "100vh",
+    }}
+  >
     <Spin size="large" tip="Loading..." />
-  </div>
+  </Flex>
 );
 
 export const errorElement = "This is an error fallback element";
